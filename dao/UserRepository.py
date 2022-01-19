@@ -1,4 +1,7 @@
 from dao.User import User
+from ../functions.hashpass import hashPass
+import os
+import hashlib
 
 
 class UserRepository:
@@ -21,7 +24,13 @@ class UserRepository:
         return self.cursor.execute(query).fetchOne()
 
     def add(self, user: User):
-        print('added user')
+        if self.get(email=user.email) is None:
+            insert_user_query = "INSERT INTO users (email, username, password) VALUES (%s, %s, %s)"
+            user.password = hashPass(user.password)
+            values = (user.email, user.username, user.password)
+            cursor.execute(insert_user_query, values)
+        else:
+            raise Exception("This user already exists please try another user")
 
     def update(self, user: User):
         print('added user')
