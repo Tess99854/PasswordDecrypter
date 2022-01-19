@@ -8,5 +8,5 @@ class FramesSwitcher:
 
     def switch_to_sign_up(self, original):
         original.grid_forget()
-        self.root('Sign Up')
+        self.root.title('Sign Up')
         set_sign_up_frame(self.root)

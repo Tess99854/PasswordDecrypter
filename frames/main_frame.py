@@ -11,7 +11,7 @@ def set_main_frame(root):
         print('moved to sign in page')
 
     def goto_sign_up():
-        fs.switch_to_sign_up(root, main_frame)
+        fs.switch_to_sign_up(main_frame)
 
     main_frame = tk.LabelFrame(root, padx=50, bg='#020426', borderwidth=0)
     main_frame.grid(row=1)
