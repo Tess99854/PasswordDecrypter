@@ -1,17 +1,20 @@
 import tkinter as tk
 
+from frames.sign_in_frame import set_sign_in_frame
 from frames.sign_up_frame import set_sign_up_frame
-from frames_switcher import FramesSwitcher
 
 
-def set_main_frame(root):
-    fs = FramesSwitcher(root)
+def set_main_frame(root, repository):
 
     def goto_sign_in():
-        print('moved to sign in page')
+        main_frame.grid_forget()
+        root.title('Sign In')
+        set_sign_in_frame(root, repository)
 
     def goto_sign_up():
-        fs.switch_to_sign_up(main_frame)
+        main_frame.grid_forget()
+        root.title('Sign Up')
+        set_sign_up_frame(root, repository)
 
     main_frame = tk.LabelFrame(root, padx=50, bg='#020426', borderwidth=0)
     main_frame.grid(row=1)
