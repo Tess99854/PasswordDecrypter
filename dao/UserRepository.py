@@ -1,11 +1,18 @@
 from dao.User import User
-from functions.hashpass import hash_password
+from functions.hashpass import hash_password, verifyPassword
+from dao.mailingService import EmailService
+
+  
+import random
 
 
 class UserRepository:
-    def __init__(self, connection) -> None:
+    email_service: EmailService = None
+
+    def __init__(self, connection, email_service) -> None:
         self.conn = connection
         self.cursor = self.conn.cursor()
+         self.email_service = email_service
         super().__init__()
 
     def all(self):
@@ -32,3 +39,25 @@ class UserRepository:
 
     def update(self, user: User):
         print('added user')
+
+    def login(self, username: str, password: str):
+        result = self.get(username=username)
+        random_number = random.randint(100000, 999999)
+        if result is None:
+            return False
+        salt = result.password[32:]
+        authpassword = result.password[:32]
+        pass_verification = verifyPassword(password, authpassword, salt)
+        if pass_verification is True:
+            content = f"Code: {random_number}"
+            self.email_service.send_email(receiver_email=result.email, content=content)
+            return random_number
+        else :
+            return False
+
+    def loginStepTwo (verification_code, generated):
+        if verification_code == generated:
+                return True
+        else :
+            return False
+

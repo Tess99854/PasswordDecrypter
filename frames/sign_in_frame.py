@@ -2,6 +2,7 @@ import tkinter as tk
 
 from dao.User import User
 from frames.menu_frame import set_menu_frame
+from dao.UserRepository import UserRepository
 
 
 def set_sign_in_frame(root, user_repository):
@@ -9,7 +10,15 @@ def set_sign_in_frame(root, user_repository):
         # Todo: add validation
         user = User(username.get(), password.get())
         # login user
-        goto_menu()
+        logged = UserRepository.login(username.get(), password.get())
+        if logged == False:
+            print ("try again")
+        else : 
+            verif = UserRepository.loginStepTwo(code.get(), logged)
+            if verif == True :
+                goto_menu()
+            else :
+                print("try again")
 
     def goto_menu():
         sign_in_frame.grid_forget()
