@@ -1,20 +1,20 @@
 import tkinter as tk
 
 from frames.menu.encoding_frame import set_encode_decode_frame
+from frames.menu.hashing_frame import set_hash_attacks_frame
 
 
 def set_menu_frame(root):
     def goto_encode():
-        print('encoding decoding frame')
         menu_frame.grid_forget()
         root.title('Encoding & Decoding')
         set_encode_decode_frame(root)
 
     def goto_hash():
-        print('goo')
-        # menu_frame.grid_forget()
-        # root.title('Sign Up')
-        # set_sign_up_frame(root, repository)
+        print('hashing frame')
+        menu_frame.grid_forget()
+        root.title('Hashing & Attacks')
+        set_hash_attacks_frame(root)
 
     def goto_symmetric_encryption():
         print('goo')
