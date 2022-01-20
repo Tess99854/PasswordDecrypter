@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from dao.User import User
+from frames.menu_frame import set_menu_frame
 
 
 def set_sign_in_frame(root, user_repository):
@@ -8,8 +9,12 @@ def set_sign_in_frame(root, user_repository):
         # Todo: add validation
         user = User(username.get(), password.get())
         # login user
+        goto_menu()
 
     def goto_menu():
+        sign_in_frame.grid_forget()
+        root.title('Menu')
+        set_menu_frame(root)
         print('going to menu..')
 
     sign_in_frame = tk.LabelFrame(root, padx=100, bg='#020426', borderwidth=1)
