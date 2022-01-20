@@ -1,11 +1,9 @@
-#from dao.User import User
 import os
 import hashlib
 import base64
 
 
-
-def hashPassw(password) :
+def hash_password(password):
     salt = os.urandom(32)
     password = password.encode()
     password = hashlib.pbkdf2_hmac('sha256', password, salt, 10000)
@@ -13,5 +11,5 @@ def hashPassw(password) :
     return base64.b64encode(password).decode('utf-8')
 
 
-if __name__=="__main__":
-   print (hashPassw('essia'))
+if __name__ == "__main__":
+    print(hash_password('essia'))
