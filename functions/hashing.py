@@ -9,3 +9,7 @@ def hashing(message, typeOfHash) :
         return hashlib.sha1(message.encode()).digest()
     if typeOfHash == 'SHA256' :
         return hashlib.sha256(message.encode()).digest()
+
+if __name__=="__main__":
+    # First let us encrypt secret message
+    print(hashing('aaaaa','MD5'))
