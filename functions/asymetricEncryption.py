@@ -1,43 +1,30 @@
-import json
-
+from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
-from Crypto.Signature.pkcs1_15 import new
-from Crypto.Hash import SHA256
+import base64
 
-from app.utils.encoder import decode, encode
+key = RSA.generate(2048)
+privateKey = key.exportKey('PEM')
+publicKey = key.publickey().exportKey('PEM')
 
+def rsaenc(message):
+    message = str.encode(message)
+    RSApublicKey = RSA.importKey(publicKey)
+    OAEP_cipher = PKCS1_OAEP.new(RSApublicKey)
+    encryptedMsg = OAEP_cipher.encrypt(message)
+    return base64.b64encode(encryptedMsg).decode('utf-8')
 
-class AsymSecurity:
+def rsadec(message):
+    RSAprivateKey = RSA.importKey(privateKey)
+    OAEP_cipher = PKCS1_OAEP.new(RSAprivateKey)
+    message = base64.b64decode(message)
+    decryptedMsg = OAEP_cipher.decrypt(message)
+    return decryptedMsg.decode('utf-8').strip()
 
-    @staticmethod
-    def from_key(key):
-        return AsymSecurity(key)
-
-    @staticmethod
-    def get_instance():
-        key=""
-        with open("key.pem", "r") as f:
-            key = RSA.importKey(f.read())
-        return AsymSecurity(key)
-
-    def __init__(self, key):
-        self.key = key
-
-    @staticmethod
-    def generate_key():
-        rsa_result = RSA.generate(3072)
-        key = rsa_result.exportKey()
-        return key
-
-    def sign(self, data):
-        sig = new(self.key)
-        data_encoded = json.dumps(data, sort_keys=True, ensure_ascii=True).encode("utf-8")
-        return sig.sign(SHA256.new(data_encoded))
-
-    def verify(self, data: dict, signature):
-        verifier = new(self.key)
-        data_encoded = json.dumps(data, sort_keys=True, ensure_ascii=True).encode("utf-8")
-        verifier.verify(SHA256.new(data_encoded), signature)
-
-    def get_public_key(self):
-        return encode(self.key.publickey().export_key())
+if __name__=="__main__":
+    # First let us encrypt secret message
+    encrypted = rsaenc("This is a secret message")
+    print(encrypted)
+    
+    # Let us decrypt using our original password
+    decrypted = rsadec(encrypted)
+    print(decrypted)
