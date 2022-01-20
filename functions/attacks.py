@@ -26,5 +26,5 @@ def attacks(message, hashType):
 
 if __name__=="__main__":
     # First let us encrypt secret message
-    print(attacks('YO\x80;8\nA9n\xd6=\xca9P5B','MD5'))
+    print(attacks('WU+AOzgKQTlu1j3KOVA1Qg==','MD5'))
 

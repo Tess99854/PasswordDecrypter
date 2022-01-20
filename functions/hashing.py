@@ -1,10 +1,11 @@
 import hashlib
+import base64
 
 def hashing(message, typeOfHash) :
     if typeOfHash == 'MD5':
         message = message.encode()
         message = hashlib.md5(message).digest()
-        return message
+        return base64.b64encode(message).decode('utf-8')
     if typeOfHash == 'SHA1':
         return hashlib.sha1(message.encode()).digest()
     if typeOfHash == 'SHA256' :
