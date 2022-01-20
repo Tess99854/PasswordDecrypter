@@ -1,32 +1,49 @@
 import tkinter as tk
 
-def set_main_frame(root, repository):
+from frames.menu.encoding_frame import set_encode_decode_frame
 
-    def goto_sign_in():
-        print('goo')
-        # main_frame.grid_forget()
-        # root.title('Sign In')
-        # set_sign_in_frame(root, repository)
 
-    def goto_sign_up():
+def set_menu_frame(root):
+    def goto_encode():
+        print('encoding decoding frame')
+        menu_frame.grid_forget()
+        root.title('Encoding & Decoding')
+        set_encode_decode_frame(root)
+
+    def goto_hash():
         print('goo')
-        # main_frame.grid_forget()
+        # menu_frame.grid_forget()
         # root.title('Sign Up')
         # set_sign_up_frame(root, repository)
 
-    main_frame = tk.LabelFrame(root, padx=50, bg='#020426', borderwidth=0)
-    main_frame.grid(row=1)
+    def goto_symmetric_encryption():
+        print('goo')
 
-    title = tk.Label(main_frame, text='Welcome Onboard!', fg='white', bg='#020426', font=('Raleway', 25))
+    def goto_asymmetric_encryption():
+        print('goo')
+
+    def goto_chat():
+        print('goo')
+
+    menu_frame = tk.LabelFrame(root, padx=50, bg='#020426', borderwidth=0)
+    menu_frame.grid(row=1)
+
+    title = tk.Label(menu_frame, pady=30, text='Choose your weapon.', fg='#DB222A', bg='#020426', font=('Raleway', 25))
     title.grid(row=0)
 
-    frame = tk.LabelFrame(main_frame, padx=50, bg='#020426', borderwidth=0)
+    frame = tk.LabelFrame(menu_frame, bg='#020426', borderwidth=0)
     frame.grid(row=2)
 
-    sign_in_button = tk.Button(frame, text='Sign In', padx=20, bg='#ebebef', fg='#DB222A', command=goto_sign_in)
-    space = tk.Label(frame, text='           ', bg='#020426')
-    sign_up_button = tk.Button(frame, text='Sign Up', padx=20, bg='#DB222A', fg='#FFF', command=goto_sign_up)
+    encode_button = tk.Button(frame, text='Encoding', padx=20, bg='#ebebef', fg='#DB222A', command=goto_encode)
+    hash_button = tk.Button(frame, text='Hashing', padx=20, bg='#ebebef', fg='#DB222A', command=goto_hash)
+    symmetric_encryption_button = tk.Button(frame, wraplength=100, text='Symmetric Encryption', padx=20, bg='#ebebef',
+                                            fg='#DB222A', command=goto_symmetric_encryption)
+    asymmetric_encryption_button = tk.Button(frame, wraplength=100, text='Asymmetric Encryption', padx=20, bg='#ebebef',
+                                             fg='#DB222A', command=goto_asymmetric_encryption)
+    chat_button = tk.Button(menu_frame, text='Chat!', padx=20, bg='#DB222A', fg='#FFF', command=goto_chat)
 
-    sign_up_button.grid(row=0, column=0)
-    space.grid(row=0, column=1)
-    sign_in_button.grid(row=0, column=2)
+    encode_button.grid(row=0, column=0)
+    hash_button.grid(row=0, column=2)
+    symmetric_encryption_button.grid(row=1, column=0, pady=20, padx=10)
+    asymmetric_encryption_button.grid(row=1, column=2)
+    chat_button.grid(row=3, columnspan=2)

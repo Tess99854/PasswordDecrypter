@@ -5,7 +5,6 @@ from frames.sign_up_frame import set_sign_up_frame
 
 
 def set_main_frame(root, repository):
-
     def goto_sign_in():
         main_frame.grid_forget()
         root.title('Sign In')
