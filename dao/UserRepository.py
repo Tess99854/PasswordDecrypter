@@ -1,7 +1,5 @@
 from dao.User import User
-from ../functions.hashpass import hashPass
-import os
-import hashlib
+from functions.hashpass import hash_password
 
 
 class UserRepository:
@@ -26,9 +24,9 @@ class UserRepository:
     def add(self, user: User):
         if self.get(email=user.email) is None:
             insert_user_query = "INSERT INTO users (email, username, password) VALUES (%s, %s, %s)"
-            user.password = hashPass(user.password)
+            user.password = hash_password(user.password)
             values = (user.email, user.username, user.password)
-            cursor.execute(insert_user_query, values)
+            self.cursor.execute(insert_user_query, values)
         else:
             raise Exception("This user already exists please try another user")
 
