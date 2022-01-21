@@ -15,7 +15,11 @@ def set_sign_in_frame(root, user_repository):
         else:
             user = User(username_text, password_text)
             try:
-                logged = UserRepository.login(username.get(), password.get())
+                print(password_text)
+                logged = user_repository.login(username_text, password_text)
+                frame.grid_forget()
+                code_label.grid(row=0)
+                code.grid(row=0, column=1)
             except Exception as e:
                 print(e)
         # Todo: add validation

@@ -1,10 +1,10 @@
 import tkinter as tk
-
+#from function.symetricEncryption import encrypt, decrypt
 
 def set_encrypt_decrypt_frame(root, encryption_type):
     if encryption_type == 'symmetric':
         from functions.symetricEncryption import encrypt, decrypt
-        options = ["DES", "AES256"]
+        options = ["DES", "AES"]
     elif encryption_type == 'asymmetric':
         from functions.asymetricEncryption import encrypt, decrypt
         options = ["RSA", "elGamal"]
@@ -72,3 +72,8 @@ def set_encrypt_decrypt_frame(root, encryption_type):
     original2.grid(row=1, column=1, pady=10)
 
     decrypted2.bind("<Leave>", decrypt_text)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.title('Symmetric Encryption & Decryption')
+    set_encrypt_decrypt_frame(root, encryption_type='symmetric')
