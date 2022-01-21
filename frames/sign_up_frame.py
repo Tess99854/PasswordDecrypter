@@ -4,10 +4,20 @@ from dao.User import User
 
 def set_sign_up_frame(root, user_repository):
     def submit():
-        # Todo: add validation
-        user = User(email.get(), username.get(), password.get())
-        user_repository.add(user)
-        print('user submitted successfully')
+        username_text = username.get()
+        password_text = password.get()
+        email_text = email.get()
+        if not username_text or not password_text or not email_text:
+            error.config(text='Please fill all the fields')
+        else:
+            user = User(email_text, username_text, password_text)
+            try:
+                user_repository.add(user)
+                error.config(text='')
+                print('user submitted successfully')
+            except Exception as e:
+                error.config(text=str(e))
+
 
     sign_up_frame = tk.LabelFrame(root, padx=100, bg='#020426', borderwidth=1)
     sign_up_frame.grid(row=1)
@@ -30,8 +40,11 @@ def set_sign_up_frame(root, user_repository):
     username.grid(row=1, column=1)
     password.grid(row=2, column=1)
 
+    error = tk.Label(sign_up_frame, fg='#DB222A', bg='#020426')
+    error.grid(row=2)
+
     buttons_frame = tk.LabelFrame(sign_up_frame, padx=50, pady=10, bg='#020426', borderwidth=0)
-    buttons_frame.grid(row=2, columnspan=2)
+    buttons_frame.grid(row=3, columnspan=2)
 
     space = tk.Label(buttons_frame, text='', bg='#020426', fg='#DB222A', width=25)
     space.grid(row=2, column=1)

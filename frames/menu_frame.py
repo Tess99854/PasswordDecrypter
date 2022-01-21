@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from frames.menu.encoding_frame import set_encode_decode_frame
+from frames.menu.encrypting_frame import set_encrypt_decrypt_frame
 from frames.menu.hashing_frame import set_hash_attacks_frame
 
 
@@ -11,16 +12,19 @@ def set_menu_frame(root):
         set_encode_decode_frame(root)
 
     def goto_hash():
-        print('hashing frame')
         menu_frame.grid_forget()
         root.title('Hashing & Attacks')
         set_hash_attacks_frame(root)
 
     def goto_symmetric_encryption():
-        print('goo')
+        menu_frame.grid_forget()
+        root.title('Symmetric Encryption & Decryption')
+        set_encrypt_decrypt_frame(root, encryption_type='symmetric')
 
     def goto_asymmetric_encryption():
-        print('goo')
+        menu_frame.grid_forget()
+        root.title('Asymmetric Encryption & Decryption')
+        set_encrypt_decrypt_frame(root, encryption_type='asymmetric')
 
     def goto_chat():
         print('goo')

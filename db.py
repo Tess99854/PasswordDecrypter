@@ -13,6 +13,6 @@ def connect():
 
         print('connection to the database succeded')
     except (Exception, psycopg2.DatabaseError) as error:
-        print('An error has occured, could not connect to the database')
+        print('An error has occured, could not connect to the database', error)
 
     return connection
