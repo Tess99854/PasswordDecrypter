@@ -4,7 +4,6 @@ from dao.User import User
 from functions.hashpass import hash_password, verifyPassword
 from dao.mailingService import EmailService
 
-  
 import random
 
 
@@ -20,7 +19,7 @@ class UserRepository:
     def all(self):
         return self.cursor.execute('SELECT * FROM users').fetchall()
 
-    def get(self, pk = None, email=None, username=None):
+    def get(self, pk=None, email=None, username=None):
         query = 'SELECT * FROM users'
         if pk:
             query += ' WHERE id = ' + "'" + pk + "'"
@@ -57,12 +56,11 @@ class UserRepository:
             content = f"Code: {random_number}"
             self.email_service.send_email(receiver_email=result.email, content=content)
             return random_number
-        else :
+        else:
             raise Exception("This password is wrong")
 
-    def loginStepTwo (verification_code, generated):
+    def loginStepTwo(verification_code, generated):
         if verification_code == generated:
-                return True
-        else :
+            return True
+        else:
             raise Exception("This code is wrong")
-
