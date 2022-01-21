@@ -50,8 +50,8 @@ class UserRepository:
         random_number = random.randint(100000, 999999)
         if result is None:
             raise Exception("This user doesn't exists please try another user")
-        salt = result.password[32:]
-        authpassword = result.password[:32]
+        salt = result[3][32:]
+        authpassword = result[3][:32]
         pass_verification = verifyPassword(password, authpassword, salt)
         if pass_verification is True:
             content = f"Code: {random_number}"
