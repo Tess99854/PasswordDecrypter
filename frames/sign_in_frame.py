@@ -2,11 +2,9 @@ import tkinter as tk
 
 from dao.User import User
 from frames.menu_frame import set_menu_frame
-from dao.UserRepository import UserRepository
 
 
 def set_sign_in_frame(root, user_repository):
-    logged : str
     def submit():
         username_text = username.get()
         password_text = password.get()
@@ -15,27 +13,17 @@ def set_sign_in_frame(root, user_repository):
         else:
             user = User(username_text, password_text)
             try:
-                print(password_text)
                 logged = user_repository.login(username_text, password_text)
-                frame.grid_forget()
-                code_label.grid(row=0)
-                code.grid(row=0, column=1)
             except Exception as e:
-                print(e)
-        # Todo: add validation
-        # login user
-        # logged = UserRepository.login(username.get(), password.get())
-        # if logged == 'False':
-           # print ("try again")
-            
-            
-    def verificationProcess():
-        try :
-            verif = UserRepository.loginStepTwo(code.get(), logged)
+                error.config(text=str(e))
+
+    def verification_process():
+        try:
+            print(code.get())
+            #verif = user_repository.loginStepTwo(code.get())
             goto_menu()
         except Exception as e:
-                print(e)
-
+            print(e)
 
     def goto_menu():
         sign_in_frame.grid_forget()
@@ -60,8 +48,14 @@ def set_sign_in_frame(root, user_repository):
     username.grid(row=0, column=1)
     password.grid(row=1, column=1)
 
+    code_label = tk.Label(frame, text="Code", fg='white', bg='#020426', font=('Raleway', 10), width=10, anchor='w')
+    code = tk.Entry(frame)
+
+    code_label.grid(row=2)
+    code.grid(row=2, column=1)
+
     error = tk.Label(sign_in_frame, fg='#DB222A', bg='#020426')
-    error.grid(row=2)
+    error.grid(row=3)
 
     buttons_frame = tk.LabelFrame(sign_in_frame, padx=50, pady=10, bg='#020426', borderwidth=0)
     buttons_frame.grid(row=3, columnspan=2)
@@ -74,3 +68,6 @@ def set_sign_in_frame(root, user_repository):
 
     submit = tk.Button(buttons_frame, text='Sign in', padx=20, fg='#ebebef', bg='#DB222A', command=submit)
     submit.grid(row=2, column=2)
+
+    submit = tk.Button(buttons_frame, text='Verify', padx=20, fg='#ebebef', bg='#DB222A', command=verification_process)
+    submit.grid(row=2, column=3)

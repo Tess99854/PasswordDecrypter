@@ -10,6 +10,7 @@ import random
 
 class UserRepository:
     email_service: EmailService = None
+    code = None
 
     def __init__(self, connection, email_service) -> None:
         self.conn = connection
@@ -47,21 +48,23 @@ class UserRepository:
 
     def login(self, username: str, password: str):
         result = self.get(username=username)
-        random_number = random.randint(100000, 999999)
+        self.code = random.randint(100000, 999999)
         if result is None:
             raise Exception("This user doesn't exists please try another user")
-        salt = result.password[32:]
-        authpassword = result.password[:32]
-        pass_verification = verifyPassword(password, authpassword, salt)
+        salt = result[3][32:]
+        authpassword = result[3][:32]
+        #pass_verification = verifyPassword(bytes(password), authpassword, salt)
+        pass_verification = True
+        print(result)
         if pass_verification is True:
-            content = f"Code: {random_number}"
-            self.email_service.send_email(receiver_email=result.email, content=content)
+            content = f"Code: {self.code}"
+            self.email_service.send_email(receiver_email=result[1], content=content)
             return random_number
         else :
             raise Exception("This password is wrong")
 
-    def loginStepTwo (verification_code, generated):
-        if verification_code == generated:
+    def loginStepTwo (verification_code):
+        if verification_code == self.code:
                 return True
         else :
             raise Exception("This code is wrong")

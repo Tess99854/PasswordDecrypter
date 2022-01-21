@@ -1,6 +1,5 @@
 import os
 import hashlib
-import base64
 
 
 def hash_password(password):
@@ -9,6 +8,7 @@ def hash_password(password):
     password = hashlib.pbkdf2_hmac('sha256', password, salt, 10000)
     password = password + salt
     return password
+
 
 def verifyPassword(passToCheck, password, salt):
     new_key = hashlib.pbkdf2_hmac('sha256', passToCheck.encode('utf-8'),salt, 100000)
