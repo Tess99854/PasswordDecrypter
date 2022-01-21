@@ -7,12 +7,8 @@ ADDRESS = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MSG = "!DISCONNECT!"
 
-# The first message is a header of length 64, informs about the length of the coming message
-# HEADER = 64
-
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDRESS)
-
 
 # handles connection from one sender
 def handle_connection(connection, address):

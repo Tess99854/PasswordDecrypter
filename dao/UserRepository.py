@@ -14,7 +14,7 @@ class UserRepository:
     def __init__(self, connection, email_service) -> None:
         self.conn = connection
         self.cursor = self.conn.cursor()
-         self.email_service = email_service
+        self.email_service = email_service
         super().__init__()
 
     def all(self):
