@@ -49,7 +49,7 @@ class UserRepository:
         result = self.get(username=username)
         random_number = random.randint(100000, 999999)
         if result is None:
-            return False
+            raise Exception("This user doesn't exists please try another user")
         salt = result.password[32:]
         authpassword = result.password[:32]
         pass_verification = verifyPassword(password, authpassword, salt)
@@ -58,11 +58,11 @@ class UserRepository:
             self.email_service.send_email(receiver_email=result.email, content=content)
             return random_number
         else :
-            return False
+            raise Exception("This password is wrong")
 
     def loginStepTwo (verification_code, generated):
         if verification_code == generated:
                 return True
         else :
-            return False
+            raise Exception("This code is wrong")
 
