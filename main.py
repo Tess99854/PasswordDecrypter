@@ -11,7 +11,7 @@ if __name__ == '__main__':
     root = tk.Tk()
     root.title('Home')
 
-    canvas = tk.Canvas(root, width=600, height=300, bg='#020426')
+    canvas = tk.Canvas(root, width=1000, height=500, bg='#020426')
     canvas.grid(rowspan=4)
 
     user_repository = UserRepository(db.connect(), email_service)

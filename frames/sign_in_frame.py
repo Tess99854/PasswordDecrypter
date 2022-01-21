@@ -14,16 +14,13 @@ def set_sign_in_frame(root, user_repository):
             user = User(username_text, password_text)
             try:
                 logged = user_repository.login(username_text, password_text)
-                frame.grid_forget()
-                code_label.grid(row=0)
-                code.grid(row=0, column=1)
             except Exception as e:
                 error.config(text=str(e))
 
     def verification_process():
-        code = '0000'
         try:
-            # verif = UserRepository.loginStepTwo(code.get(), logged)
+            print(code.get())
+            #verif = user_repository.loginStepTwo(code.get())
             goto_menu()
         except Exception as e:
             print(e)
@@ -54,9 +51,11 @@ def set_sign_in_frame(root, user_repository):
     code_label = tk.Label(frame, text="Code", fg='white', bg='#020426', font=('Raleway', 10), width=10, anchor='w')
     code = tk.Entry(frame)
 
+    code_label.grid(row=2)
+    code.grid(row=2, column=1)
 
     error = tk.Label(sign_in_frame, fg='#DB222A', bg='#020426')
-    error.grid(row=2)
+    error.grid(row=3)
 
     buttons_frame = tk.LabelFrame(sign_in_frame, padx=50, pady=10, bg='#020426', borderwidth=0)
     buttons_frame.grid(row=3, columnspan=2)
@@ -69,3 +68,6 @@ def set_sign_in_frame(root, user_repository):
 
     submit = tk.Button(buttons_frame, text='Sign in', padx=20, fg='#ebebef', bg='#DB222A', command=submit)
     submit.grid(row=2, column=2)
+
+    submit = tk.Button(buttons_frame, text='Verify', padx=20, fg='#ebebef', bg='#DB222A', command=verification_process)
+    submit.grid(row=2, column=3)
