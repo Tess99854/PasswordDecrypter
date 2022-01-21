@@ -10,6 +10,7 @@ DISCONNECT_MSG = "!DISCONNECT!"
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDRESS)
 
+
 # handles connection from one sender
 def handle_connection(connection, address):
     connected = True

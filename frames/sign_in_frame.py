@@ -14,6 +14,9 @@ def set_sign_in_frame(root, user_repository):
             user = User(username_text, password_text)
             try:
                 logged = user_repository.login(username_text, password_text)
+                frame.grid_forget()
+                code_label.grid(row=0)
+                code.grid(row=0, column=1)
             except Exception as e:
                 error.config(text=str(e))
 
@@ -47,6 +50,10 @@ def set_sign_in_frame(root, user_repository):
 
     username.grid(row=0, column=1)
     password.grid(row=1, column=1)
+
+    code_label = tk.Label(frame, text="Code", fg='white', bg='#020426', font=('Raleway', 10), width=10, anchor='w')
+    code = tk.Entry(frame)
+
 
     error = tk.Label(sign_in_frame, fg='#DB222A', bg='#020426')
     error.grid(row=2)
