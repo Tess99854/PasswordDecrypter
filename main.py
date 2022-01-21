@@ -11,6 +11,7 @@ if __name__ == '__main__':
     canvas = tk.Canvas(root, width=600, height=300, bg='#020426')
     canvas.grid(rowspan=4)
 
+    # connection = db.connect()
     user_repository = UserRepository(db.connect())
 
     set_main_frame(root, user_repository)
