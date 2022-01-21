@@ -1,5 +1,6 @@
 import tkinter as tk
 from dao.User import User
+from frames.sign_in_frame import set_sign_in_frame
 
 
 def set_sign_up_frame(root, user_repository):
@@ -17,6 +18,11 @@ def set_sign_up_frame(root, user_repository):
                 print('user submitted successfully')
             except Exception as e:
                 error.config(text=str(e))
+
+    def back():
+        sign_up_frame.grid_forget()
+        root.title('Sign In')
+        set_sign_in_frame(root, user_repository)
 
 
     sign_up_frame = tk.LabelFrame(root, padx=100, bg='#020426', borderwidth=1)
@@ -49,7 +55,7 @@ def set_sign_up_frame(root, user_repository):
     space = tk.Label(buttons_frame, text='', bg='#020426', fg='#DB222A', width=25)
     space.grid(row=2, column=1)
 
-    back = tk.Button(buttons_frame, text='<<', bg='#020426', fg='#DB222A')
+    back = tk.Button(buttons_frame, text='<<', bg='#020426', fg='#DB222A', command=back)
     back.grid(row=2, column=0)
 
     submit = tk.Button(buttons_frame, text='Submit', padx=20, fg='#ebebef', bg='#DB222A', command=submit)

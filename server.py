@@ -3,7 +3,7 @@ import os
 import socket
 import threading
 import time
-from random import randbytes
+from Crypto.Random import get_random_bytes
 
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
@@ -23,7 +23,7 @@ class Server:
         # Generate the public and private keys to share
         # And a random secret key for AES
         self.generate_keys()
-        secret_key = randbytes(16)
+        secret_key = get_random_bytes(16)
 
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
