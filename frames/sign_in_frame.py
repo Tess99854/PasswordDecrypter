@@ -16,7 +16,6 @@ def set_sign_in_frame(root, user_repository):
             user = User(username_text, password_text)
             try:
                 logged = UserRepository.login(username.get(), password.get())
-                goto_menu()
             except Exception as e:
                 print(e)
         # Todo: add validation
@@ -27,11 +26,11 @@ def set_sign_in_frame(root, user_repository):
             
             
     def verificationProcess():
+        try :
             verif = UserRepository.loginStepTwo(code.get(), logged)
-            if verif == True :
-                goto_menu()
-            else :
-                print("try again")
+            goto_menu()
+        except Exception as e:
+                print(e)
 
 
     def goto_menu():
