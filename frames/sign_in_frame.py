@@ -2,9 +2,11 @@ import tkinter as tk
 
 from dao.User import User
 from frames.menu_frame import set_menu_frame
+from dao.UserRepository import UserRepository
 
 
 def set_sign_in_frame(root, user_repository):
+    logged : str
     def submit():
         username_text = username.get()
         password_text = password.get()
@@ -13,10 +15,24 @@ def set_sign_in_frame(root, user_repository):
         else:
             user = User(username_text, password_text)
             try:
-                # login user
+                logged = UserRepository.login(username.get(), password.get())
                 goto_menu()
             except Exception as e:
                 print(e)
+        # Todo: add validation
+        # login user
+        # logged = UserRepository.login(username.get(), password.get())
+        # if logged == 'False':
+           # print ("try again")
+            
+            
+    def verificationProcess():
+            verif = UserRepository.loginStepTwo(code.get(), logged)
+            if verif == True :
+                goto_menu()
+            else :
+                print("try again")
+
 
     def goto_menu():
         sign_in_frame.grid_forget()
