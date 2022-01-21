@@ -6,14 +6,15 @@ from dao.UserRepository import UserRepository
 
 
 def set_sign_in_frame(root, user_repository):
+    logged : str
     def submit():
         # Todo: add validation
         user = User(username.get(), password.get())
         # login user
         logged = UserRepository.login(username.get(), password.get())
-        if logged == False:
+        if logged == 'False':
             print ("try again")
-        else : 
+    def verificationProcess():
             verif = UserRepository.loginStepTwo(code.get(), logged)
             if verif == True :
                 goto_menu()
