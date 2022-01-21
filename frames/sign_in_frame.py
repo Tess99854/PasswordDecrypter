@@ -6,16 +6,22 @@ from frames.menu_frame import set_menu_frame
 
 def set_sign_in_frame(root, user_repository):
     def submit():
-        # Todo: add validation
-        user = User(username.get(), password.get())
-        # login user
-        goto_menu()
+        username_text = username.get()
+        password_text = password.get()
+        if not username_text or not password_text:
+            error.config(text='Please fill all the fields')
+        else:
+            user = User(username_text, password_text)
+            try:
+                # login user
+                goto_menu()
+            except Exception as e:
+                print(e)
 
     def goto_menu():
         sign_in_frame.grid_forget()
         root.title('Menu')
         set_menu_frame(root)
-        print('going to menu..')
 
     sign_in_frame = tk.LabelFrame(root, padx=100, bg='#020426', borderwidth=1)
     sign_in_frame.grid(row=1)
@@ -35,8 +41,11 @@ def set_sign_in_frame(root, user_repository):
     username.grid(row=0, column=1)
     password.grid(row=1, column=1)
 
+    error = tk.Label(sign_in_frame, fg='#DB222A', bg='#020426')
+    error.grid(row=2)
+
     buttons_frame = tk.LabelFrame(sign_in_frame, padx=50, pady=10, bg='#020426', borderwidth=0)
-    buttons_frame.grid(row=2, columnspan=2)
+    buttons_frame.grid(row=3, columnspan=2)
 
     space = tk.Label(buttons_frame, text='', bg='#020426', fg='#DB222A', width=25)
     space.grid(row=2, column=1)
